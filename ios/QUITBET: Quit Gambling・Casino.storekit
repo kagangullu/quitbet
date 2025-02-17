@@ -1,0 +1,145 @@
+{
+  "appPolicies" : {
+    "eula" : "",
+    "policies" : [
+      {
+        "locale" : "en_US",
+        "policyText" : "",
+        "policyURL" : ""
+      }
+    ]
+  },
+  "identifier" : "A9D2E651",
+  "nonRenewingSubscriptions" : [
+
+  ],
+  "products" : [
+
+  ],
+  "settings" : {
+    "_applicationInternalID" : "6742050059",
+    "_developerTeamID" : "U98W496942",
+    "_failTransactionsEnabled" : false,
+    "_lastSynchronizedDate" : 761388105.21759295,
+    "_locale" : "en_US",
+    "_storefront" : "USA",
+    "_storeKitErrors" : [
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Load Products"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Purchase"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Verification"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "App Store Sync"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Subscription Status"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "App Transaction"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Manage Subscriptions Sheet"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Refund Request Sheet"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Offer Code Redeem Sheet"
+      }
+    ]
+  },
+  "subscriptionGroups" : [
+    {
+      "id" : "21636294",
+      "localizations" : [
+
+      ],
+      "name" : "subscriptions",
+      "subscriptions" : [
+        {
+          "adHocOffers" : [
+
+          ],
+          "codeOffers" : [
+
+          ],
+          "displayPrice" : "12.99",
+          "familyShareable" : true,
+          "groupNumber" : 1,
+          "internalID" : "6742050178",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "Full access to QUITBET",
+              "displayName" : "Unlimited (1 Month)",
+              "locale" : "en_US"
+            }
+          ],
+          "productID" : "quitbet.monthly.pro",
+          "recurringSubscriptionPeriod" : "P1M",
+          "referenceName" : "Unlimited (1 Month)",
+          "subscriptionGroupID" : "21636294",
+          "type" : "RecurringSubscription",
+          "winbackOffers" : [
+
+          ]
+        },
+        {
+          "adHocOffers" : [
+
+          ],
+          "codeOffers" : [
+
+          ],
+          "displayPrice" : "44.99",
+          "familyShareable" : true,
+          "groupNumber" : 2,
+          "internalID" : "6742050047",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "Full access to QUITBET",
+              "displayName" : "Unlimited (1 Year)",
+              "locale" : "en_US"
+            }
+          ],
+          "productID" : "quitbet.annual.pro",
+          "recurringSubscriptionPeriod" : "P1Y",
+          "referenceName" : "Unlimited (1 Year)",
+          "subscriptionGroupID" : "21636294",
+          "type" : "RecurringSubscription",
+          "winbackOffers" : [
+
+          ]
+        }
+      ]
+    }
+  ],
+  "version" : {
+    "major" : 4,
+    "minor" : 0
+  }
+}
