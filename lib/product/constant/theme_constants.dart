@@ -17,9 +17,11 @@ class ThemeConstants {
         colors: [
           Color(0xff14133c),
           Color(0xff000000),
+          Color(0xff000000),
         ],
-        stops: [0.0, 1.0],
+        stops: [0.0, 0.5, 1.0],
       );
+
   Gradient get getLottieBackgroundLinearGradient => LinearGradient(
         begin: Alignment.topRight,
         end: Alignment.bottomLeft,

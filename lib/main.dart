@@ -1,6 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:quit_gambling/feature/home/view/home_view.dart';
-import 'package:quit_gambling/feature/onboard/view/welcome_view.dart';
+import 'package:quit_gambling/feature/main_view.dart';
 import 'package:quit_gambling/log.dart';
 import 'package:superwallkit_flutter/superwallkit_flutter.dart';
 
@@ -24,14 +24,18 @@ class BetOff extends StatelessWidget {
       title: 'QUITBET',
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark().copyWith(
+        cupertinoOverrideTheme: const NoDefaultCupertinoThemeData(
+          brightness: Brightness.dark,
+          primaryColor: Colors.white,
+        ),
         textSelectionTheme: TextSelectionThemeData(
           cursorColor: Colors.white,
           selectionHandleColor: Colors.white,
-          selectionColor: Colors.white.withOpacity(0.5),
+          selectionColor: Colors.white.withOpacity(.5),
         ),
       ),
       // home: const WelcomeView(),
-      home: const HomePage(),
+      home: const MainView(),
     );
   }
 }
