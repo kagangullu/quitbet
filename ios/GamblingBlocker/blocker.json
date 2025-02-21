@@ -1,0 +1,114 @@
+[
+    {
+        "trigger": {
+            "url-filter": ".*",
+            "if-domain": [
+                "bet365.com",
+                "betus.com",
+                "bovada.lv",
+                "mybookie.ag",
+                "sportsinteraction.com",
+                "bodog.eu",
+                "betonline.ag",
+                "intertops.eu",
+                "5dimes.eu",
+                "bookmaker.eu",
+                "sportsbetting.ag",
+                "gtbets.eu",
+                "heritagesports.eu",
+                "betdsi.eu",
+                "sportsbook.ag",
+                "justbet.cx",
+                "betcris.com",
+                "betway.com",
+                "888sport.com",
+                "williamhill.com",
+                "unibet.com",
+                "pinnacle.com",
+                "betfair.com",
+                "betfred.com",
+                "ladbrokes.com",
+                "skybet.com",
+                "coral.co.uk",
+                "betvictor.com",
+                "10bet.com",
+                "sportingbet.com",
+                "betsson.com",
+                "betsafe.com",
+                "leovegas.com",
+                "mrgreen.com",
+                "888casino.com",
+                "partycasino.com",
+                "casinoroom.com",
+                "jackpotcitycasino.com",
+                "spinpalace.com",
+                "royalvegas.com",
+                "rubyfortune.com",
+                "platinumplaycasino.com",
+                "allslotscasino.com",
+                "europalace.com",
+                "gamingclub.com",
+                "lucky247.com",
+                "maplecasino.ca",
+                "canadacasino.ca",
+                "casinocanada.com",
+                "stake.com",
+                "luckydays.com",
+                "cloudbet.com",
+                "instaspin.com",
+                "bc.game"
+            ]
+        },
+        "action": {
+            "type": "block"
+        }
+    },
+    {
+        "trigger": {
+            "url-filter": ".*bet.*"
+        },
+        "action": {
+            "type": "block"
+        }
+    },
+    {
+        "trigger": {
+            "url-filter": ".*gamble.*"
+        },
+        "action": {
+            "type": "block"
+        }
+    },
+    {
+        "trigger": {
+            "url-filter": ".*wager.*"
+        },
+        "action": {
+            "type": "block"
+        }
+    },
+    {
+        "trigger": {
+            "url-filter": ".*bookmaker.*"
+        },
+        "action": {
+            "type": "block"
+        }
+    },
+    {
+        "trigger": {
+            "url-filter": ".*sportsbook.*"
+        },
+        "action": {
+            "type": "block"
+        }
+    },
+    {
+        "trigger": {
+            "url-filter": ".*casino.*"
+        },
+        "action": {
+            "type": "block"
+        }
+    }
+]
