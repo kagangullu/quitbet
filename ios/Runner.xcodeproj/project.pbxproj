@@ -14,6 +14,9 @@
 		5DC5478C335FC3F7D0E832CC /* Pods_RunnerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD014B6F763F90F7E817081D /* Pods_RunnerTests.framework */; };
 		74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74858FAE1ED2DC5600515810 /* AppDelegate.swift */; };
 		8D1F11A22D6791AC00E8F1B2 /* GamblingBlocker.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 8D1F11992D6791AC00E8F1B2 /* GamblingBlocker.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		8D4CA6E82D68B84400A8A2F8 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D4CA6E72D68B84400A8A2F8 /* WidgetKit.framework */; };
+		8D4CA6EA2D68B84400A8A2F8 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D4CA6E92D68B84400A8A2F8 /* SwiftUI.framework */; };
+		8D4CA6F92D68B84500A8A2F8 /* GamblingTrackerWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 8D4CA6E62D68B84400A8A2F8 /* GamblingTrackerWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		8DC2FC852D61DC4500A99A22 /* QUITBET: Quit Gambling・Casino.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 8DC2FC842D61DC4500A99A22 /* QUITBET: Quit Gambling・Casino.storekit */; };
 		8DC2FC872D61DC5000A99A22 /* StoreKitTestCertificate.cer in Resources */ = {isa = PBXBuildFile; fileRef = 8DC2FC862D61DC5000A99A22 /* StoreKitTestCertificate.cer */; };
 		97C146FC1CF9000F007C117D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FA1CF9000F007C117D /* Main.storyboard */; };
@@ -36,6 +39,13 @@
 			remoteGlobalIDString = 8D1F11982D6791AC00E8F1B2;
 			remoteInfo = GamblingBlocker;
 		};
+		8D4CA6F72D68B84500A8A2F8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 97C146E61CF9000F007C117D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D4CA6E52D68B84400A8A2F8;
+			remoteInfo = GamblingTrackerWidgetExtension;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -45,6 +55,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				8D4CA6F92D68B84500A8A2F8 /* GamblingTrackerWidgetExtension.appex in Embed Foundation Extensions */,
 				8D1F11A22D6791AC00E8F1B2 /* GamblingBlocker.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
@@ -83,6 +94,10 @@
 		7AFA3C8E1D35360C0083082E /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = Flutter/Release.xcconfig; sourceTree = "<group>"; };
 		8D1F11992D6791AC00E8F1B2 /* GamblingBlocker.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = GamblingBlocker.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D37B5AA2D663BB1001CB57E /* Runner.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Runner.entitlements; sourceTree = "<group>"; };
+		8D4CA6E62D68B84400A8A2F8 /* GamblingTrackerWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = GamblingTrackerWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D4CA6E72D68B84400A8A2F8 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		8D4CA6E92D68B84400A8A2F8 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		8D4CA6FF2D68B88200A8A2F8 /* GamblingTrackerWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GamblingTrackerWidgetExtension.entitlements; sourceTree = "<group>"; };
 		8DC2FC842D61DC4500A99A22 /* QUITBET: Quit Gambling・Casino.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = "QUITBET: Quit Gambling・Casino.storekit"; sourceTree = "<group>"; };
 		8DC2FC862D61DC5000A99A22 /* StoreKitTestCertificate.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = StoreKitTestCertificate.cer; sourceTree = "<group>"; };
 		8E6058E562F783249B39CA0D /* Pods-Runner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.debug.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.debug.xcconfig"; sourceTree = "<group>"; };
@@ -109,10 +124,18 @@
 			);
 			target = 8D1F11982D6791AC00E8F1B2 /* GamblingBlocker */;
 		};
+		8D4CA6FD2D68B84500A8A2F8 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 8D4CA6E52D68B84400A8A2F8 /* GamblingTrackerWidgetExtension */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		8D1F119A2D6791AC00E8F1B2 /* GamblingBlocker */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (8D1F11A32D6791AC00E8F1B2 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = GamblingBlocker; sourceTree = "<group>"; };
+		8D4CA6EB2D68B84400A8A2F8 /* GamblingTrackerWidget */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (8D4CA6FD2D68B84500A8A2F8 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = GamblingTrackerWidget; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +151,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8D4CA6E32D68B84400A8A2F8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D4CA6EA2D68B84400A8A2F8 /* SwiftUI.framework in Frameworks */,
+				8D4CA6E82D68B84400A8A2F8 /* WidgetKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -147,6 +179,8 @@
 			children = (
 				A08DCC559F5A402CFD71C3BE /* Pods_Runner.framework */,
 				BD014B6F763F90F7E817081D /* Pods_RunnerTests.framework */,
+				8D4CA6E72D68B84400A8A2F8 /* WidgetKit.framework */,
+				8D4CA6E92D68B84400A8A2F8 /* SwiftUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -186,11 +220,13 @@
 		97C146E51CF9000F007C117D = {
 			isa = PBXGroup;
 			children = (
+				8D4CA6FF2D68B88200A8A2F8 /* GamblingTrackerWidgetExtension.entitlements */,
 				8DC2FC842D61DC4500A99A22 /* QUITBET: Quit Gambling・Casino.storekit */,
 				8DC2FC862D61DC5000A99A22 /* StoreKitTestCertificate.cer */,
 				9740EEB11CF90186004384FC /* Flutter */,
 				97C146F01CF9000F007C117D /* Runner */,
 				8D1F119A2D6791AC00E8F1B2 /* GamblingBlocker */,
+				8D4CA6EB2D68B84400A8A2F8 /* GamblingTrackerWidget */,
 				97C146EF1CF9000F007C117D /* Products */,
 				331C8082294A63A400263BE5 /* RunnerTests */,
 				500563F3F0C45F9F3C053FD9 /* Pods */,
@@ -204,6 +240,7 @@
 				97C146EE1CF9000F007C117D /* Runner.app */,
 				331C8081294A63A400263BE5 /* RunnerTests.xctest */,
 				8D1F11992D6791AC00E8F1B2 /* GamblingBlocker.appex */,
+				8D4CA6E62D68B84400A8A2F8 /* GamblingTrackerWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -268,6 +305,28 @@
 			productReference = 8D1F11992D6791AC00E8F1B2 /* GamblingBlocker.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
+		8D4CA6E52D68B84400A8A2F8 /* GamblingTrackerWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8D4CA6FE2D68B84500A8A2F8 /* Build configuration list for PBXNativeTarget "GamblingTrackerWidgetExtension" */;
+			buildPhases = (
+				8D4CA6E22D68B84400A8A2F8 /* Sources */,
+				8D4CA6E32D68B84400A8A2F8 /* Frameworks */,
+				8D4CA6E42D68B84400A8A2F8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				8D4CA6EB2D68B84400A8A2F8 /* GamblingTrackerWidget */,
+			);
+			name = GamblingTrackerWidgetExtension;
+			packageProductDependencies = (
+			);
+			productName = GamblingTrackerWidgetExtension;
+			productReference = 8D4CA6E62D68B84400A8A2F8 /* GamblingTrackerWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		97C146ED1CF9000F007C117D /* Runner */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 97C147051CF9000F007C117D /* Build configuration list for PBXNativeTarget "Runner" */;
@@ -287,6 +346,7 @@
 			);
 			dependencies = (
 				8D1F11A12D6791AC00E8F1B2 /* PBXTargetDependency */,
+				8D4CA6F82D68B84500A8A2F8 /* PBXTargetDependency */,
 			);
 			name = Runner;
 			productName = Runner;
@@ -311,6 +371,9 @@
 					8D1F11982D6791AC00E8F1B2 = {
 						CreatedOnToolsVersion = 16.2;
 					};
+					8D4CA6E52D68B84400A8A2F8 = {
+						CreatedOnToolsVersion = 16.2;
+					};
 					97C146ED1CF9000F007C117D = {
 						CreatedOnToolsVersion = 7.3.1;
 						LastSwiftMigration = 1100;
@@ -333,6 +396,7 @@
 				97C146ED1CF9000F007C117D /* Runner */,
 				331C8080294A63A400263BE5 /* RunnerTests */,
 				8D1F11982D6791AC00E8F1B2 /* GamblingBlocker */,
+				8D4CA6E52D68B84400A8A2F8 /* GamblingTrackerWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -346,6 +410,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		8D1F11972D6791AC00E8F1B2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8D4CA6E42D68B84400A8A2F8 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -478,6 +549,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		8D4CA6E22D68B84400A8A2F8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		97C146EA1CF9000F007C117D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -499,6 +577,11 @@
 			isa = PBXTargetDependency;
 			target = 8D1F11982D6791AC00E8F1B2 /* GamblingBlocker */;
 			targetProxy = 8D1F11A02D6791AC00E8F1B2 /* PBXContainerItemProxy */;
+		};
+		8D4CA6F82D68B84500A8A2F8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8D4CA6E52D68B84400A8A2F8 /* GamblingTrackerWidgetExtension */;
+			targetProxy = 8D4CA6F72D68B84500A8A2F8 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -763,6 +846,126 @@
 			};
 			name = Profile;
 		};
+		8D4CA6FA2D68B84500A8A2F8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = GamblingTrackerWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = U98W496942;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = GamblingTrackerWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = GamblingTrackerWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.quitbet.GamblingTrackerWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		8D4CA6FB2D68B84500A8A2F8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = GamblingTrackerWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = U98W496942;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = GamblingTrackerWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = GamblingTrackerWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.quitbet.GamblingTrackerWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		8D4CA6FC2D68B84500A8A2F8 /* Profile */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = GamblingTrackerWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = U98W496942;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = GamblingTrackerWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = GamblingTrackerWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.quitbet.GamblingTrackerWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Profile;
+		};
 		97C147031CF9000F007C117D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -944,6 +1147,16 @@
 				8D1F11A52D6791AC00E8F1B2 /* Debug */,
 				8D1F11A62D6791AC00E8F1B2 /* Release */,
 				8D1F11A72D6791AC00E8F1B2 /* Profile */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8D4CA6FE2D68B84500A8A2F8 /* Build configuration list for PBXNativeTarget "GamblingTrackerWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8D4CA6FA2D68B84500A8A2F8 /* Debug */,
+				8D4CA6FB2D68B84500A8A2F8 /* Release */,
+				8D4CA6FC2D68B84500A8A2F8 /* Profile */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
