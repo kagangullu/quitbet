@@ -3,6 +3,7 @@ import "package:flutter/material.dart";
 import "dart:math" as math;
 import "package:kartal/kartal.dart";
 import "package:quit_gambling/product/constant/theme_constants.dart";
+import "package:quit_gambling/product/services/abstinence_tracker_service.dart";
 
 class AnalyticsView extends StatefulWidget {
   const AnalyticsView({super.key});
@@ -12,6 +13,79 @@ class AnalyticsView extends StatefulWidget {
 }
 
 class _AnalyticsViewState extends State<AnalyticsView> {
+  late AbstinenceTrackerService _trackerService;
+  int _recoveryPercentage = 0;
+  String _daysStreak = "0";
+  String _fullRecoveryDate = "";
+  Map<String, double> _benefitProgressMap = {
+    "Improved Confidence": 0.0,
+    "Increased Self-Esteem": 0.0,
+    "Mental Clarity": 0.0,
+    "Increased Libido": 0.0,
+    "Healthier Thoughts": 0.0,
+  };
+
+  @override
+  void initState() {
+    super.initState();
+    _trackerService = AbstinenceTrackerService();
+    _initializeTrackerService();
+  }
+
+  Future<void> _initializeTrackerService() async {
+    await _trackerService.init();
+    _updateRecoveryData();
+  }
+
+  void _updateRecoveryData() {
+    if (!mounted) return;
+
+    final startTime = _trackerService.getStartTime();
+    if (startTime == null) return;
+
+    final duration = _trackerService.getAbstinenceDuration();
+    final days = duration.inDays;
+
+    final percentage = ((days / 90) * 100).clamp(0, 100).round();
+
+    final fullRecoveryDate = startTime.add(const Duration(days: 90));
+    final formattedDate =
+        "${_getMonthAbbreviation(fullRecoveryDate.month)} ${fullRecoveryDate.day}, ${fullRecoveryDate.year}";
+
+    final Map<String, double> benefitProgress = {
+      "Improved Confidence": (days / 60).clamp(0.0, 1.0),
+      "Increased Self-Esteem": (days / 70).clamp(0.0, 1.0),
+      "Mental Clarity": (days / 45).clamp(0.0, 1.0),
+      "Increased Libido": (days / 40).clamp(0.0, 1.0),
+      "Healthier Thoughts": (days / 80).clamp(0.0, 1.0),
+    };
+
+    setState(() {
+      _recoveryPercentage = percentage;
+      _daysStreak = days.toString();
+      _fullRecoveryDate = formattedDate;
+      _benefitProgressMap = benefitProgress;
+    });
+  }
+
+  String _getMonthAbbreviation(int month) {
+    const months = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec'
+    ];
+    return months[month - 1];
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -72,7 +146,7 @@ class _AnalyticsViewState extends State<AnalyticsView> {
                 ],
               ),
               const SizedBox(height: 40),
-              const Center(
+              Center(
                 child: SizedBox(
                   width: 300,
                   height: 300,
@@ -80,8 +154,8 @@ class _AnalyticsViewState extends State<AnalyticsView> {
                     alignment: Alignment.center,
                     children: [
                       GradientCircularProgressPainter(
-                        progress: 0.39,
-                        gradient: LinearGradient(
+                        progress: _recoveryPercentage / 100,
+                        gradient: const LinearGradient(
                           colors: [Color(0xff2bc865), Color(0xff21c8b6)],
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,
@@ -90,7 +164,7 @@ class _AnalyticsViewState extends State<AnalyticsView> {
                       Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Text(
+                          const Text(
                             "RECOVERY",
                             style: TextStyle(
                               color: Colors.white,
@@ -99,16 +173,16 @@ class _AnalyticsViewState extends State<AnalyticsView> {
                             ),
                           ),
                           Text(
-                            "37%",
-                            style: TextStyle(
+                            "$_recoveryPercentage%",
+                            style: const TextStyle(
                               color: Colors.white,
                               fontSize: 72,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
                           Text(
-                            "34 DAY STREAK",
-                            style: TextStyle(
+                            "$_daysStreak DAY STREAK",
+                            style: const TextStyle(
                               color: Colors.white,
                               fontSize: 12,
                               fontWeight: FontWeight.w500,
@@ -123,14 +197,7 @@ class _AnalyticsViewState extends State<AnalyticsView> {
               const SizedBox(height: 30),
               Padding(
                 padding: context.padding.horizontalLow,
-                child: const Text(
-                  "The changes are becoming more noticeable now. You're not just breaking a habit; you're building a new, healthier life. Keep going, one day at a time.",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 15,
-                  ),
-                ),
+                child: _buildMotivationalText(),
               ),
               const SizedBox(height: 20),
               Center(
@@ -163,9 +230,9 @@ class _AnalyticsViewState extends State<AnalyticsView> {
                       border: Border.all(
                         color: const Color(0xff012e59),
                       )),
-                  child: const Text(
-                    "Quit Porn by Apr 16, 2025",
-                    style: TextStyle(
+                  child: Text(
+                    "Quit Porn by $_fullRecoveryDate",
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 16,
                     ),
@@ -178,42 +245,45 @@ class _AnalyticsViewState extends State<AnalyticsView> {
                   color: const Color(0xff11133d),
                   borderRadius: context.border.normalBorderRadius,
                 ),
-                child: const Column(
+                child: Column(
                   children: [
                     BenefitItem(
                       icon: Icons.star_border,
                       title: "Improved Confidence",
                       description:
                           "As you distance yourself from porn, you'll gradually notice improved confidence, particularly in social situations and interactions with others.",
-                      progress: 0.7,
+                      progress:
+                          _benefitProgressMap["Improved Confidence"] ?? 0.0,
                     ),
                     BenefitItem(
                       icon: Icons.psychology,
                       title: "Increased Self-Esteem",
                       description:
                           "With time, overcoming porn addiction can lead to a more positive self-image and higher self-esteem, as you regain control over your life.",
-                      progress: 0.6,
+                      progress:
+                          _benefitProgressMap["Increased Self-Esteem"] ?? 0.0,
                     ),
                     BenefitItem(
                       icon: Icons.brightness_7,
                       title: "Mental Clarity",
                       description:
                           "After quitting porn, many people report a noticeable improvement in mental clarity, focus, and cognitive function within a couple of months.",
-                      progress: 0.5,
+                      progress: _benefitProgressMap["Mental Clarity"] ?? 0.0,
                     ),
                     BenefitItem(
                       icon: Icons.trending_up,
                       title: "Increased Libido",
                       description:
                           "As your body and mind recover, you may experience a healthier libido and improved sexual performance after around 30-45 days.",
-                      progress: 0.65,
+                      progress: _benefitProgressMap["Increased Libido"] ?? 0.0,
                     ),
                     BenefitItem(
                       icon: Icons.favorite_border,
                       title: "Healthier Thoughts",
                       description:
                           "Quitting porn allows for the development of healthier, more realistic perceptions of sex and relationships, which generally becomes evident after a few months.",
-                      progress: 0.4,
+                      progress:
+                          _benefitProgressMap["Healthier Thoughts"] ?? 0.0,
                     ),
                   ],
                 ),
@@ -225,6 +295,57 @@ class _AnalyticsViewState extends State<AnalyticsView> {
         ),
       ),
     );
+  }
+
+  Widget _buildMotivationalText() {
+    final days = int.tryParse(_daysStreak) ?? 0;
+
+    if (days < 7) {
+      return const Text(
+        "The first week is the hardest. Every day you resist is building your mental strength. Focus on making it through today.",
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 15,
+        ),
+      );
+    } else if (days < 30) {
+      return const Text(
+        "The changes are becoming more noticeable now. You're not just breaking a habit; you're building a new, healthier life. Keep going, one day at a time.",
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 15,
+        ),
+      );
+    } else if (days < 60) {
+      return const Text(
+        "You've made it past the first month! Your brain is healing, and you're establishing new neural pathways. The benefits will only grow from here.",
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 15,
+        ),
+      );
+    } else if (days < 90) {
+      return const Text(
+        "You're in the home stretch now. Your dedication is inspiring. The habits you've formed during this journey will serve you well beyond the 90-day mark.",
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 15,
+        ),
+      );
+    } else {
+      return const Text(
+        "Congratulations on reaching 90 days! This is a significant milestone in your recovery. Remember that this journey continues, but you've proven your strength and commitment.",
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 15,
+        ),
+      );
+    }
   }
 }
 
@@ -269,7 +390,6 @@ class _GradientCircularProgressPainter extends CustomPainter {
     const strokeWidth = 20.0;
     final rect = Rect.fromCircle(center: center, radius: radius);
 
-    // Draw background circle
     final backgroundPaint = Paint()
       ..color = backgroundColor
       ..style = PaintingStyle.stroke
@@ -277,7 +397,6 @@ class _GradientCircularProgressPainter extends CustomPainter {
 
     canvas.drawCircle(center, radius - strokeWidth / 2, backgroundPaint);
 
-    // Draw progress arc with gradient
     final progressPaint = Paint()
       ..shader = gradient.createShader(rect)
       ..style = PaintingStyle.stroke
@@ -347,15 +466,13 @@ class BenefitItem extends StatelessWidget {
                   const SizedBox(height: 12),
                   Stack(
                     children: [
-                      // Gray background progress bar
                       Container(
                         height: 4,
                         decoration: BoxDecoration(
-                          color: Colors.grey[700], // Gray background
+                          color: Colors.grey[700],
                           borderRadius: BorderRadius.circular(4),
                         ),
                       ),
-                      // Colored progress bar
                       Container(
                         height: 4,
                         clipBehavior: Clip.hardEdge,

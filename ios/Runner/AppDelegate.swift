@@ -1,6 +1,7 @@
 import Flutter
 import UIKit
 import SafariServices
+import WidgetKit
 
 @main
 @objc class AppDelegate: FlutterAppDelegate {
@@ -24,9 +25,32 @@ import SafariServices
             }
         })
         
+        // Widget'ları güncelle (iOS 14 ve üzeri)
+        if #available(iOS 14.0, *) {
+            WidgetCenter.shared.reloadAllTimelines()
+        }
+        
         GeneratedPluginRegistrant.register(with: self)
         return super.application(application, didFinishLaunchingWithOptions: launchOptions)
     }
+
+    override func applicationWillEnterForeground(_ application: UIApplication) {
+        super.applicationWillEnterForeground(application)
+        
+        if #available(iOS 14.0, *) {
+            WidgetCenter.shared.reloadAllTimelines()
+        }
+    }
+
+    override func applicationDidBecomeActive(_ application: UIApplication) {
+        super.applicationDidBecomeActive(application)
+        
+        if #available(iOS 14.0, *) {
+            WidgetCenter.shared.reloadAllTimelines()
+        }
+    }
+
+
     
     private func reloadContentBlocker(result: @escaping FlutterResult) {
         SFContentBlockerManager.reloadContentBlocker(

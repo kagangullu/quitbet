@@ -2,13 +2,85 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:quit_gambling/feature/home/view/home_view.dart';
+import 'package:quit_gambling/product/services/abstinence_tracker_service.dart';
 
 mixin HomeViewModel on State<HomeView> {
   int selectedIndex = 0;
-  Timer? timer;
-  Duration duration = const Duration();
-  DateTime? startTime;
+
   String currentMood = 'happy';
+  final AbstinenceTrackerService trackerService = AbstinenceTrackerService();
+  Timer? _timer;
+
+  bool _isLoading = true;
+  bool get isLoading => _isLoading;
+
+  DateTime? get startTime => trackerService.getStartTime();
+  Duration get duration => trackerService.getAbstinenceDuration();
+  int get brainProgress => trackerService.calculateBrainProgress();
+
+  String calculateQuitDate() {
+    if (trackerService.getStartTime() == null) {
+      return 'Not set';
+    }
+
+    // Calculate date 90 days after start time
+    final startTime = trackerService.getStartTime()!;
+    final quitDate = startTime.add(const Duration(days: 90));
+
+    // Format the date as "Month Day, Year"
+    final months = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec'
+    ];
+    final month = months[quitDate.month - 1];
+    final day = quitDate.day;
+    final year = quitDate.year;
+
+    return '$month $day, $year';
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _initTrackerService();
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
+
+  Future<void> _initTrackerService() async {
+    setState(() => _isLoading = true);
+
+    await trackerService.init();
+
+    _startTimer();
+
+    setState(() => _isLoading = false);
+  }
+
+  void _startTimer() {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (mounted) setState(() {});
+    });
+  }
+
+  Future<void> resetTracking() async {
+    await trackerService.resetTracking();
+    if (mounted) setState(() {});
+  }
 
   final Map<String, String> moodEmojis = {
     'happy': '😄',
@@ -17,35 +89,4 @@ mixin HomeViewModel on State<HomeView> {
     'worried': '😟',
     'sad': '😢',
   };
-  @override
-  void dispose() {
-    timer?.cancel();
-    super.dispose();
-  }
-
-  void startTimer() {
-    if (timer != null) {
-      timer!.cancel();
-    }
-    startTime = DateTime.now();
-    timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      setState(() {
-        duration = DateTime.now().difference(startTime!);
-      });
-    });
-  }
-
-  String formatDuration(Duration duration) {
-    String twoDigits(int n) => n.toString().padLeft(2, '0');
-    String hours = twoDigits(duration.inHours);
-    String minutes = twoDigits(duration.inMinutes.remainder(60));
-    String seconds = twoDigits(duration.inSeconds.remainder(60));
-    return '${hours}hr ${minutes}m ${seconds}s';
-  }
-
-  int calculateProgress() {
-    if (startTime == null) return 0;
-    final daysPassed = DateTime.now().difference(startTime!).inDays;
-    return ((daysPassed / 90) * 100).round().clamp(0, 100);
-  }
 }
