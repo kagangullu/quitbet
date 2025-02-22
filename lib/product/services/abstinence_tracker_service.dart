@@ -19,10 +19,10 @@ class AbstinenceTrackerService {
     final milliseconds = prefs.getInt(_startTimeKey);
 
     if (milliseconds != null) {
-      // _startTime = DateTime.fromMillisecondsSinceEpoch(milliseconds);
+      _startTime = DateTime.fromMillisecondsSinceEpoch(milliseconds);
     } else {
       _startTime = DateTime.now();
-      // await prefs.setInt(_startTimeKey, _startTime!.millisecondsSinceEpoch);
+      await prefs.setInt(_startTimeKey, _startTime!.millisecondsSinceEpoch);
     }
 
     await updateHomeScreenWidget();
