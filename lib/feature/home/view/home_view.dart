@@ -1,6 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:kartal/kartal.dart';
 import 'package:lottie/lottie.dart';
+import 'package:quit_gambling/feature/achievements/view/acievements_view.dart';
 import 'package:quit_gambling/feature/home/view/meditate_view.dart';
 import 'package:quit_gambling/feature/home/view_model/home_view_model.dart';
 import 'package:quit_gambling/feature/home/widget/menu_section.dart';
@@ -23,6 +26,32 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> with HomeViewModel {
   bool _isTempted = false;
 
+  /// Determines which Lottie animation to display based on abstinence duration
+  String _getLottieAssetPath() {
+    final days = trackerService.getAbstinenceDuration().inDays;
+
+    // Match the achievement milestones for consistency
+    if (days >= 90) {
+      return "assets/lottie/star.json"; // Nirvana
+    } else if (days >= 60) {
+      return "assets/lottie/dia_3.json"; // Ascendant
+    } else if (days >= 45) {
+      return "assets/lottie/dia_2.json"; // Trailblazer
+    } else if (days >= 30) {
+      return "assets/lottie/dia_1.json"; // Guardian
+    } else if (days >= 14) {
+      return "assets/lottie/orb_4.json"; // Fortress
+    } else if (days >= 10) {
+      return "assets/lottie/orb_3.json"; // Momentum
+    } else if (days >= 7) {
+      return "assets/lottie/orb_5.json"; // Pioneer
+    } else if (days >= 3) {
+      return "assets/lottie/orb_2.json"; // Sprout
+    } else {
+      return "assets/lottie/orb_1.json"; // Seed
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -35,18 +64,56 @@ class _HomeViewState extends State<HomeView> with HomeViewModel {
               padding: context.padding.horizontalNormal,
               child: Column(
                 children: [
-                  context.sized.emptySizedHeightBoxLow3x,
-                  context.sized.emptySizedHeightBoxLow3x,
-                  context.sized.emptySizedHeightBoxLow3x,
+                  context.sized.emptySizedHeightBoxNormal,
+                  context.sized.emptySizedHeightBoxLow,
+                  context.sized.emptySizedHeightBoxLow,
+                  Row(
+                    children: [
+                      const Text(
+                        "QUITBET",
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                      const Spacer(),
+                      const Icon(CupertinoIcons.money_dollar_circle),
+                      context.sized.emptySizedWidthBoxLow3x,
+                      //SVG icon
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const AchievementsView(),
+                              fullscreenDialog: true,
+                            ),
+                          );
+                        },
+                        child: SvgPicture.asset(
+                          "assets/icons/cup_icon.svg",
+                          color: Colors.white,
+                          height: 24,
+                        ),
+                      ),
+                    ],
+                  ),
+                  context.sized.emptySizedHeightBoxLow,
                   Center(
-                    child: Lottie.asset("assets/lottie/orb.json", height: 175),
+                    child: Lottie.asset(
+                      _getLottieAssetPath(),
+                      height: 150,
+                      repeat: true,
+                      animate: true,
+                    ),
                   ),
                   const SizedBox(height: 30),
                   const Text(
                     "You've been gambling-free for:",
                     style: TextStyle(
                       fontSize: 12,
-                      color: Colors.white70,
+                      color: Colors.white,
                     ),
                   ),
                   Text(
@@ -279,6 +346,7 @@ class _HomeViewState extends State<HomeView> with HomeViewModel {
                   style: TextStyle(color: Colors.redAccent)),
               onPressed: () {
                 resetTracking();
+                setState(() {});
                 Navigator.of(context).pop();
               },
             ),
