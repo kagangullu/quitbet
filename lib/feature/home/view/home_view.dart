@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:kartal/kartal.dart';
 import 'package:lottie/lottie.dart';
-import 'package:quit_gambling/feature/achievements/view/acievements_view.dart';
+import 'package:quit_gambling/feature/achievements/view/achievements_view.dart';
+import 'package:quit_gambling/feature/home/view/dont_relapse_view.dart';
 import 'package:quit_gambling/feature/home/view/meditate_view.dart';
 import 'package:quit_gambling/feature/home/view_model/home_view_model.dart';
 import 'package:quit_gambling/feature/home/widget/menu_section.dart';
@@ -11,7 +12,9 @@ import 'package:quit_gambling/feature/home/widget/mood_panel.dart';
 import 'package:quit_gambling/feature/home/widget/pledge_bottom_sheet.dart';
 import 'package:quit_gambling/feature/home/widget/quitting_reason_widget.dart';
 import 'package:quit_gambling/feature/main_view.dart';
+import 'package:quit_gambling/feature/relapsed/view/relapsed_view.dart';
 import 'package:quit_gambling/product/constant/theme_constants.dart';
+import 'package:quit_gambling/product/widget/join_group_dialog.dart';
 
 part '../widget/action_button.dart';
 part '../widget/status_card.dart';
@@ -180,15 +183,28 @@ class _HomeViewState extends State<HomeView> with HomeViewModel {
                       ),
                       _ActionButton(
                         onTap: () {
-                          _showResetConfirmationDialog();
+                          Navigator.push(
+                            context,
+                            CupertinoPageRoute(
+                              builder: (context) => const RelapsedView(),
+                              fullscreenDialog: true,
+                            ),
+                          );
                         },
                         label: "Reset",
                         icon: Icons.refresh,
                       ),
                       _ActionButton(
-                        onTap: () {},
-                        label: "More",
-                        icon: Icons.more_horiz,
+                        onTap: () {
+                          showCupertinoDialog<void>(
+                            context: context,
+                            barrierDismissible: true,
+                            builder: (BuildContext context) =>
+                                const JoinGroupDialog(),
+                          );
+                        },
+                        label: "Chat",
+                        icon: Icons.telegram,
                       ),
                     ],
                   ),
@@ -199,23 +215,24 @@ class _HomeViewState extends State<HomeView> with HomeViewModel {
                     child: Row(
                       children: [
                         StatusCard(
-                            title: "You're on track to quit by:",
-                            value: calculateQuitDate(),
-                            iconOrEmoji: Icons.check_circle,
-                            iconColor: Colors.white,
-                            onTap: () {
-                              Navigator.of(context).pushReplacement(
-                                PageRouteBuilder(
-                                  pageBuilder: (context, animation,
-                                          secondaryAnimation) =>
-                                      const MainView(selectedIndex: 1),
-                                  transitionDuration: Duration.zero,
-                                  reverseTransitionDuration: Duration.zero,
-                                ),
-                              );
-                            },
-                            textColor: Colors.white,
-                            isEmoji: false),
+                          title: "You're on track to quit by:",
+                          value: calculateQuitDate(),
+                          iconOrEmoji: Icons.check_circle,
+                          iconColor: Colors.white,
+                          onTap: () {
+                            Navigator.of(context).pushReplacement(
+                              PageRouteBuilder(
+                                pageBuilder:
+                                    (context, animation, secondaryAnimation) =>
+                                        const MainView(selectedIndex: 1),
+                                transitionDuration: Duration.zero,
+                                reverseTransitionDuration: Duration.zero,
+                              ),
+                            );
+                          },
+                          textColor: Colors.white,
+                          isEmoji: false,
+                        ),
                         const Spacer(
                           flex: 2,
                         ),
@@ -227,8 +244,8 @@ class _HomeViewState extends State<HomeView> with HomeViewModel {
                                 .replaceFirst('f', 'F'),
                             iconOrEmoji: moodEmojis[currentMood] ?? '😁',
                             iconColor: const Color(0xFFFFD700),
-                            onTap: () {
-                              showModalBottomSheet(
+                            onTap: () async {
+                              await showModalBottomSheet(
                                 context: context,
                                 isScrollControlled: true,
                                 backgroundColor: Colors.transparent,
@@ -241,6 +258,18 @@ class _HomeViewState extends State<HomeView> with HomeViewModel {
                                   },
                                 ),
                               );
+                              if (context.mounted) {
+                                if (_isTempted) {
+                                  Navigator.push(
+                                    context,
+                                    CupertinoPageRoute(
+                                      builder: (context) =>
+                                          const DontRelapseView(),
+                                      fullscreenDialog: true,
+                                    ),
+                                  );
+                                }
+                              }
                             },
                             textColor: _isTempted ? Colors.red : Colors.green,
                             isEmoji: true),
@@ -304,55 +333,6 @@ class _HomeViewState extends State<HomeView> with HomeViewModel {
           ),
         ],
       ),
-    );
-  }
-
-  Future<void> _showResetConfirmationDialog() async {
-    return showDialog<void>(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          backgroundColor: const Color(0xff051126),
-          title: const Text(
-            'Reset Tracking',
-            style: TextStyle(color: Colors.white),
-          ),
-          content: const SingleChildScrollView(
-            child: ListBody(
-              children: <Widget>[
-                Text(
-                  'Did you gamble today? This will reset your progress counter to zero.',
-                  style: TextStyle(color: Colors.white70),
-                ),
-                SizedBox(height: 16),
-                Text(
-                  'Remember, recovery is about the journey. A slip doesn\'t mean failure, it\'s a chance to learn and grow stronger.',
-                  style: TextStyle(color: Colors.white70),
-                ),
-              ],
-            ),
-          ),
-          actions: <Widget>[
-            TextButton(
-              child:
-                  const Text('Cancel', style: TextStyle(color: Colors.white70)),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            TextButton(
-              child: const Text('Reset',
-                  style: TextStyle(color: Colors.redAccent)),
-              onPressed: () {
-                resetTracking();
-                setState(() {});
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
     );
   }
 }
