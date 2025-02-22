@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:quit_gambling/feature/achievements/view/achievements_view.dart';
 import 'package:quit_gambling/feature/home/view/lottie_relaxing_view.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:quit_gambling/product/widget/join_group_dialog.dart';
 
 class MenuSection extends StatefulWidget {
   const MenuSection({super.key});
@@ -15,58 +16,7 @@ class _MenuSectionState extends State<MenuSection> {
     showCupertinoDialog<void>(
       context: context,
       barrierDismissible: true,
-      builder: (BuildContext context) => CupertinoAlertDialog(
-        title: const Text(
-          'Join Group Chat',
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        content: const Text(
-          "We highly recommend you to join our community chat to help beat your addiction. You're not alone. (This will soon be built-in to the QUITBET app.",
-          style: TextStyle(
-            fontSize: 13,
-          ),
-          textAlign: TextAlign.center,
-        ),
-        actions: <CupertinoDialogAction>[
-          CupertinoDialogAction(
-            isDefaultAction: true,
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            child: const Text(
-              'Cancel',
-              style: TextStyle(
-                color: CupertinoColors.systemBlue,
-                fontSize: 17,
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-          ),
-          CupertinoDialogAction(
-            isDestructiveAction: true,
-            onPressed: () async {
-              final Uri url = Uri.parse('https://t.me/+f-L9wmRlWNdiMmJk');
-              if (await canLaunchUrl(url)) {
-                await launchUrl(url, mode: LaunchMode.externalApplication);
-              }
-              if (context.mounted) {
-                Navigator.pop(context);
-              }
-            },
-            child: const Text(
-              'Join Chat',
-              style: TextStyle(
-                color: Color(0xfffa483d),
-                fontSize: 17,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ),
-        ],
-      ),
+      builder: (BuildContext context) => const JoinGroupDialog(),
     );
   }
 
@@ -108,7 +58,15 @@ class _MenuSectionState extends State<MenuSection> {
               icon: const Icon(CupertinoIcons.tropicalstorm, size: 24),
               title: 'Achievements',
               iconColor: Colors.purple,
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const AchievementsView(),
+                    fullscreenDialog: true,
+                  ),
+                );
+              },
             ),
           ],
         ),

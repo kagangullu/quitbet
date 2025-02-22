@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:kartal/kartal.dart';
 import 'package:quit_gambling/feature/analytics/view/analytics_view.dart';
 import 'package:quit_gambling/feature/home/view/home_view.dart';
+import 'package:quit_gambling/feature/home/view/panic_button_bottom_sheet.dart';
 
 class MainView extends StatefulWidget {
   const MainView({super.key, this.selectedIndex = 0});
@@ -46,7 +47,14 @@ class _MainViewState extends State<MainView> {
               Container(
                 color: Colors.black,
                 child: _PanicButton(
-                  onTap: () {},
+                  onTap: () {
+                    showModalBottomSheet(
+                      context: context,
+                      isScrollControlled: true,
+                      backgroundColor: Colors.transparent,
+                      builder: (context) => const PanicButtonBottomSheet(),
+                    );
+                  },
                 ),
               ),
             ClipRRect(
@@ -160,35 +168,38 @@ class _PanicButton extends StatelessWidget {
     return Padding(
       padding:
           context.padding.horizontalNormal + context.padding.onlyTopLow / 2,
-      child: Container(
-        height: 55,
-        decoration: BoxDecoration(
-          color: const Color(0xff2e060b),
-          borderRadius: context.border.highBorderRadius,
-          border: Border.all(
-            color: const Color(0xff9e1e1e),
-            width: 3,
+      child: GestureDetector(
+        onTap: onTap,
+        child: Container(
+          height: 55,
+          decoration: BoxDecoration(
+            color: const Color(0xff2e060b),
+            borderRadius: context.border.highBorderRadius,
+            border: Border.all(
+              color: const Color(0xff9e1e1e),
+              width: 3,
+            ),
           ),
-        ),
-        child: const Center(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                CupertinoIcons.exclamationmark_octagon,
-                size: 20,
-                color: Colors.white,
-              ),
-              SizedBox(width: 8),
-              Text(
-                'Panic Button',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
+          child: const Center(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  CupertinoIcons.exclamationmark_octagon,
+                  size: 20,
                   color: Colors.white,
                 ),
-              ),
-            ],
+                SizedBox(width: 8),
+                Text(
+                  'Panic Button',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
