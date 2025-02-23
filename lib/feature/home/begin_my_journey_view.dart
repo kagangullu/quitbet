@@ -90,8 +90,7 @@ class _BeginMyJourneyViewState extends State<BeginMyJourneyView> {
                           final trackerService = AbstinenceTrackerService();
                           await trackerService.startTracking();
                           if (context.mounted) {
-                            Navigator.pop(context);
-                            setState(() {});
+                            Navigator.pop(context, true);
                           }
                         },
                         padding: EdgeInsets.zero,
