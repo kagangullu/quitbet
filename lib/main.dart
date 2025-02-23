@@ -1,6 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:home_widget/home_widget.dart';
+import 'package:provider/provider.dart';
+import 'package:quit_gambling/feature/main_view.dart';
+import 'package:quit_gambling/log.dart';
+import 'package:quit_gambling/product/services/abstinence_tracker_service.dart';
+import 'package:quit_gambling/product/services/nova_mind_provider.dart';
 import 'package:quit_gambling/feature/main_view.dart';
 import 'package:quit_gambling/log.dart';
 import 'package:quit_gambling/product/services/abstinence_tracker_service.dart';
@@ -40,22 +45,25 @@ class BetOff extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'QUITBET',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData.dark().copyWith(
-        cupertinoOverrideTheme: const NoDefaultCupertinoThemeData(
-          brightness: Brightness.dark,
-          primaryColor: Colors.white,
+    return ChangeNotifierProvider(
+      create: (_) => ChatProvider(),
+      child: MaterialApp(
+        title: 'QUITBET',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData.dark().copyWith(
+          cupertinoOverrideTheme: const NoDefaultCupertinoThemeData(
+            brightness: Brightness.dark,
+            primaryColor: Colors.white,
+          ),
+          textSelectionTheme: TextSelectionThemeData(
+            cursorColor: Colors.white,
+            selectionHandleColor: Colors.white,
+            selectionColor: Colors.white.withOpacity(.5),
+          ),
         ),
-        textSelectionTheme: TextSelectionThemeData(
-          cursorColor: Colors.white,
-          selectionHandleColor: Colors.white,
-          selectionColor: Colors.white.withOpacity(.5),
-        ),
+        // home: const WelcomeView(),
+        home: const MainView(),
       ),
-      // home: const WelcomeView(),
-      home: const MainView(),
     );
   }
 }
