@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:quit_gambling/feature/achievements/view/achievements_view.dart';
 import 'package:quit_gambling/feature/home/view/lottie_relaxing_view.dart';
+import 'package:quit_gambling/feature/novamind/view/nova_mind_view.dart';
 import 'package:quit_gambling/feature/reason_for_change/view/reason_for_change_view.dart';
 import 'package:quit_gambling/product/widget/join_group_dialog.dart';
 
@@ -33,7 +34,15 @@ class _MenuSectionState extends State<MenuSection> {
                   size: 24),
               title: 'Talk to Melius',
               iconColor: Colors.orange,
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  CupertinoPageRoute(
+                    builder: (context) => const NovaMindView(),
+                    fullscreenDialog: true,
+                  ),
+                );
+              },
             ),
             _MenuItem(
               icon: const Icon(CupertinoIcons.heart_circle_fill, size: 24),
