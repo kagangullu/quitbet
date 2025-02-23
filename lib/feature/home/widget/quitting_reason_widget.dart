@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:pull_down_button/pull_down_button.dart';
 import 'package:quit_gambling/product/widget/my_cupertino_button.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class QuitReasonCard extends StatefulWidget {
   const QuitReasonCard({super.key});
@@ -13,6 +14,30 @@ class QuitReasonCard extends StatefulWidget {
 
 class _QuitReasonCardState extends State<QuitReasonCard> {
   bool isPressed = false;
+  String quitReason = '';
+  static const String _quitReasonKey = 'quit_reason';
+
+  @override
+  void initState() {
+    super.initState();
+    _loadQuitReason();
+  }
+
+  Future<void> _loadQuitReason() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      quitReason = prefs.getString(_quitReasonKey) ?? '';
+    });
+  }
+
+  Future<void> _updateQuitReason(String newReason) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(_quitReasonKey, newReason);
+    setState(() {
+      quitReason = newReason;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -37,7 +62,7 @@ class _QuitReasonCardState extends State<QuitReasonCard> {
                 ),
                 const SizedBox(width: 8),
                 Text(
-                  "I'm quitting because:",
+                  "I'm quitting gambling because:",
                   style: TextStyle(
                     color: Colors.grey[400],
                     fontSize: 12,
@@ -73,7 +98,10 @@ class _QuitReasonCardState extends State<QuitReasonCard> {
                           context: context,
                           backgroundColor: Colors.transparent,
                           isScrollControlled: true,
-                          builder: (context) => const QuitBottomSheet(),
+                          builder: (context) => QuitBottomSheet(
+                            initialReason: quitReason,
+                            onReasonSaved: _updateQuitReason,
+                          ),
                         );
                       },
                       title: 'Edit reason',
@@ -89,7 +117,9 @@ class _QuitReasonCardState extends State<QuitReasonCard> {
                 width: double.infinity,
                 padding: const EdgeInsets.symmetric(vertical: 12),
                 child: Text(
-                  "Click here to add a reason why you're quitting",
+                  quitReason.isEmpty
+                      ? "Click here to add your reason for quitting gambling"
+                      : "'$quitReason'",
                   style: TextStyle(
                     color: isPressed ? Colors.white60 : Colors.white,
                     fontSize: 16,
@@ -106,31 +136,38 @@ class _QuitReasonCardState extends State<QuitReasonCard> {
 }
 
 class QuitBottomSheet extends StatefulWidget {
-  const QuitBottomSheet({super.key});
+  final String initialReason;
+  final Function(String) onReasonSaved;
+
+  const QuitBottomSheet({
+    super.key,
+    required this.initialReason,
+    required this.onReasonSaved,
+  });
 
   @override
   State<QuitBottomSheet> createState() => _QuitBottomSheetState();
 }
 
 class _QuitBottomSheetState extends State<QuitBottomSheet> {
-  TextEditingController controller = TextEditingController();
-  bool isTextNotEmpty = false; // Yeni state değişkeni
+  late TextEditingController controller;
+  bool isTextNotEmpty = false;
 
   @override
   void initState() {
     super.initState();
-    // Controller'a listener ekleyerek text değişimlerini dinliyoruz
+    controller = TextEditingController(text: widget.initialReason);
     controller.addListener(_onTextChanged);
+    isTextNotEmpty = widget.initialReason.isNotEmpty;
   }
 
   @override
   void dispose() {
-    controller.removeListener(_onTextChanged); // Listener'ı kaldırıyoruz
+    controller.removeListener(_onTextChanged);
     controller.dispose();
     super.dispose();
   }
 
-  // Text değiştiğinde çağrılacak method
   void _onTextChanged() {
     setState(() {
       isTextNotEmpty = controller.text.isNotEmpty;
@@ -198,7 +235,7 @@ class _QuitBottomSheetState extends State<QuitBottomSheet> {
                   maxLines: 6,
                   decoration: const InputDecoration(
                     hintText:
-                        'Why are you committed to the No-Nut journey? How is it affecting you, how do you feel when you relapse? (required)',
+                        'Why are you committed to stopping gambling? How is it affecting you and your loved ones? How do you feel when you relapse? (required)',
                     hintStyle: TextStyle(
                       fontWeight: FontWeight.w500,
                       color: Color(0xff656567),
@@ -219,6 +256,7 @@ class _QuitBottomSheetState extends State<QuitBottomSheet> {
                   hintText: "Save",
                   isActive: isTextNotEmpty,
                   onTap: () {
+                    widget.onReasonSaved(controller.text);
                     Navigator.pop(context);
                   },
                 ),
