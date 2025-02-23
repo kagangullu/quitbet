@@ -23,7 +23,7 @@ class StatusCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      flex: 12,
+      flex: 13,
       child: Stack(
         clipBehavior: Clip.none,
         children: [

@@ -237,42 +237,43 @@ class _HomeViewState extends State<HomeView> with HomeViewModel {
                           flex: 2,
                         ),
                         StatusCard(
-                            title: 'Tempted to Relapse:',
-                            value: _isTempted
-                                .toString()
-                                .replaceFirst('t', 'T')
-                                .replaceFirst('f', 'F'),
-                            iconOrEmoji: moodEmojis[currentMood] ?? '😁',
-                            iconColor: const Color(0xFFFFD700),
-                            onTap: () async {
-                              await showModalBottomSheet(
-                                context: context,
-                                isScrollControlled: true,
-                                backgroundColor: Colors.transparent,
-                                builder: (context) => MoodPanel(
-                                  onSave: (mood, isTempted) {
-                                    setState(() {
-                                      currentMood = mood;
-                                      _isTempted = isTempted;
-                                    });
-                                  },
-                                ),
-                              );
-                              if (context.mounted) {
-                                if (_isTempted) {
-                                  Navigator.push(
-                                    context,
-                                    CupertinoPageRoute(
-                                      builder: (context) =>
-                                          const DontRelapseView(),
-                                      fullscreenDialog: true,
-                                    ),
-                                  );
-                                }
+                          title: 'Tempted to Relapse:',
+                          value: _isTempted
+                              .toString()
+                              .replaceFirst('t', 'T')
+                              .replaceFirst('f', 'F'),
+                          iconOrEmoji: moodEmojis[currentMood] ?? '😁',
+                          iconColor: const Color(0xFFFFD700),
+                          onTap: () async {
+                            await showModalBottomSheet(
+                              context: context,
+                              isScrollControlled: true,
+                              backgroundColor: Colors.transparent,
+                              builder: (context) => MoodPanel(
+                                onSave: (mood, isTempted) {
+                                  setState(() {
+                                    currentMood = mood;
+                                    _isTempted = isTempted;
+                                  });
+                                },
+                              ),
+                            );
+                            if (context.mounted) {
+                              if (_isTempted) {
+                                Navigator.push(
+                                  context,
+                                  CupertinoPageRoute(
+                                    builder: (context) =>
+                                        const DontRelapseView(),
+                                    fullscreenDialog: true,
+                                  ),
+                                );
                               }
-                            },
-                            textColor: _isTempted ? Colors.red : Colors.green,
-                            isEmoji: true),
+                            }
+                          },
+                          textColor: _isTempted ? Colors.red : Colors.green,
+                          isEmoji: true,
+                        ),
                       ],
                     ),
                   ),

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:quit_gambling/feature/home/view/home_view.dart';
 import 'package:quit_gambling/product/services/abstinence_tracker_service.dart';
 
@@ -20,7 +21,9 @@ mixin HomeViewModel on State<HomeView> {
 
   String calculateQuitDate() {
     if (trackerService.getStartTime() == null) {
-      return 'Not set';
+      final now = DateTime.now();
+      final target = now.add(const Duration(days: 90));
+      return DateFormat('dd MMM yyyy').format(target);
     }
 
     // Calculate date 90 days after start time
