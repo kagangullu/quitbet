@@ -3,6 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class AbstinenceTrackerService {
   static const String _startTimeKey = 'abstinence_start_time';
+  static const String _isActiveKey = 'is_tracking_active';
 
   static final AbstinenceTrackerService _instance =
       AbstinenceTrackerService._internal();
@@ -11,18 +12,19 @@ class AbstinenceTrackerService {
 
   DateTime? _startTime;
   bool _isInitialized = false;
+  bool _isActive = false;
+
+  bool get isActive => _isActive;
 
   Future<void> init() async {
     if (_isInitialized) return;
 
     final prefs = await SharedPreferences.getInstance();
     final milliseconds = prefs.getInt(_startTimeKey);
+    _isActive = prefs.getBool(_isActiveKey) ?? false;
 
-    if (milliseconds != null) {
+    if (milliseconds != null && _isActive) {
       _startTime = DateTime.fromMillisecondsSinceEpoch(milliseconds);
-    } else {
-      _startTime = DateTime.now();
-      await prefs.setInt(_startTimeKey, _startTime!.millisecondsSinceEpoch);
     }
 
     await updateHomeScreenWidget();
@@ -39,8 +41,12 @@ class AbstinenceTrackerService {
   }
 
   Future<void> resetTracking() async {
-    final now = DateTime.now();
-    await setStartTime(now);
+    _startTime = null;
+    _isActive = false;
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove(_startTimeKey);
+    await prefs.setBool(_isActiveKey, false);
+    await updateHomeScreenWidget();
   }
 
   DateTime? getStartTime() {
@@ -48,10 +54,19 @@ class AbstinenceTrackerService {
   }
 
   Duration getAbstinenceDuration() {
-    if (_startTime == null) {
+    if (_startTime == null || !_isActive) {
       return Duration.zero;
     }
     return DateTime.now().difference(_startTime!);
+  }
+
+  Future<void> startTracking() async {
+    _startTime = DateTime.now();
+    _isActive = true;
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt(_startTimeKey, _startTime!.millisecondsSinceEpoch);
+    await prefs.setBool(_isActiveKey, true);
+    await updateHomeScreenWidget();
   }
 
   String getMainDurationText() {
