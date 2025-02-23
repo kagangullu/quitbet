@@ -1,4 +1,6 @@
 // main_view.dart
+// ignore_for_file: unrelated_type_equality_checks
+
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -52,13 +54,16 @@ class _MainViewState extends State<MainView> {
                   onTap: () async {
                     final trackerService = AbstinenceTrackerService();
                     if (!trackerService.isActive) {
-                      Navigator.push(
+                      final result = await Navigator.push(
                         context,
                         CupertinoPageRoute(
                           builder: (context) => const BeginMyJourneyView(),
                           fullscreenDialog: true,
                         ),
                       );
+                      if (result == true && mounted) {
+                        setState(() {});
+                      }
                     } else {
                       showModalBottomSheet(
                         context: context,
