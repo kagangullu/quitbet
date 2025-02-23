@@ -6,8 +6,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:kartal/kartal.dart';
 import 'package:quit_gambling/feature/analytics/view/analytics_view.dart';
+import 'package:quit_gambling/feature/home/begin_my_journey_view.dart';
 import 'package:quit_gambling/feature/home/view/home_view.dart';
 import 'package:quit_gambling/feature/home/view/panic_button_bottom_sheet.dart';
+import 'package:quit_gambling/product/services/abstinence_tracker_service.dart';
 
 class MainView extends StatefulWidget {
   const MainView({super.key, this.selectedIndex = 0});
@@ -47,13 +49,24 @@ class _MainViewState extends State<MainView> {
               Container(
                 color: Colors.black,
                 child: _PanicButton(
-                  onTap: () {
-                    showModalBottomSheet(
-                      context: context,
-                      isScrollControlled: true,
-                      backgroundColor: Colors.transparent,
-                      builder: (context) => const PanicButtonBottomSheet(),
-                    );
+                  onTap: () async {
+                    final trackerService = AbstinenceTrackerService();
+                    if (!trackerService.isActive) {
+                      Navigator.push(
+                        context,
+                        CupertinoPageRoute(
+                          builder: (context) => const BeginMyJourneyView(),
+                          fullscreenDialog: true,
+                        ),
+                      );
+                    } else {
+                      showModalBottomSheet(
+                        context: context,
+                        isScrollControlled: true,
+                        backgroundColor: Colors.transparent,
+                        builder: (context) => const PanicButtonBottomSheet(),
+                      );
+                    }
                   },
                 ),
               ),
@@ -165,6 +178,18 @@ class _PanicButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final trackerService = AbstinenceTrackerService();
+    final isActive = trackerService.isActive;
+
+    final buttonColor =
+        isActive ? const Color(0xff2e060b) : const Color(0xff0B2E06);
+    final borderColor =
+        isActive ? const Color(0xff9e1e1e) : const Color(0xff1e9e1e);
+    final buttonText = isActive ? 'Panic Button' : 'Begin my Journey';
+    final icon = isActive
+        ? CupertinoIcons.exclamationmark_octagon
+        : CupertinoIcons.exclamationmark_circle;
+
     return Padding(
       padding:
           context.padding.horizontalNormal + context.padding.onlyTopLow / 2,
@@ -173,26 +198,26 @@ class _PanicButton extends StatelessWidget {
         child: Container(
           height: 55,
           decoration: BoxDecoration(
-            color: const Color(0xff2e060b),
+            color: buttonColor,
             borderRadius: context.border.highBorderRadius,
             border: Border.all(
-              color: const Color(0xff9e1e1e),
+              color: borderColor,
               width: 3,
             ),
           ),
-          child: const Center(
+          child: Center(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(
-                  CupertinoIcons.exclamationmark_octagon,
+                  icon,
                   size: 20,
                   color: Colors.white,
                 ),
-                SizedBox(width: 8),
+                const SizedBox(width: 8),
                 Text(
-                  'Panic Button',
-                  style: TextStyle(
+                  buttonText,
+                  style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
                     color: Colors.white,
