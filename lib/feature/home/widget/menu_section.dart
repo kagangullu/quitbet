@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:quit_gambling/feature/achievements/view/achievements_view.dart';
 import 'package:quit_gambling/feature/home/view/lottie_relaxing_view.dart';
+import 'package:quit_gambling/feature/reason_for_change/view/reason_for_change_view.dart';
 import 'package:quit_gambling/product/widget/join_group_dialog.dart';
 
 class MenuSection extends StatefulWidget {
@@ -38,7 +39,15 @@ class _MenuSectionState extends State<MenuSection> {
               icon: const Icon(CupertinoIcons.heart_circle_fill, size: 24),
               title: 'Reasons for change',
               iconColor: Colors.pink,
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  CupertinoPageRoute(
+                    builder: (context) => const ReasonsForChangeView(),
+                    fullscreenDialog: true,
+                  ),
+                );
+              },
             ),
             _MenuItem(
               icon: const Icon(CupertinoIcons.chat_bubble_2_fill, size: 24),
