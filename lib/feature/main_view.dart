@@ -34,7 +34,6 @@ class _MainViewState extends State<MainView> {
     const AnalyticsView(),
     const Placeholder(),
     const Placeholder(),
-    const Placeholder(),
   ];
 
   @override
@@ -125,14 +124,9 @@ class _MainViewState extends State<MainView> {
           onTap: () => _onItemTapped(2),
         ),
         _NavItem(
-          icon: CupertinoIcons.chat_bubble,
+          icon: Icons.menu_rounded,
           isSelected: _selectedIndex == 3,
           onTap: () => _onItemTapped(3),
-        ),
-        _NavItem(
-          icon: Icons.menu_rounded,
-          isSelected: _selectedIndex == 4,
-          onTap: () => _onItemTapped(4),
         ),
       ],
     );
