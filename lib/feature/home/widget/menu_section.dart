@@ -3,8 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:quit_gambling/feature/achievements/view/achievements_view.dart';
 import 'package:quit_gambling/feature/home/view/lottie_relaxing_view.dart';
 import 'package:quit_gambling/feature/novamind/view/nova_mind_view.dart';
-import 'package:quit_gambling/feature/reason_for_change/view/reason_for_change_view.dart';
 import 'package:quit_gambling/product/widget/join_group_dialog.dart';
+import 'package:quit_gambling/feature/reason_for_change/view/reason_for_change_view.dart';
 
 class MenuSection extends StatefulWidget {
   const MenuSection({super.key});

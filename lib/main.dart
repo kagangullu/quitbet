@@ -6,6 +6,9 @@ import 'package:quit_gambling/feature/main_view.dart';
 import 'package:quit_gambling/log.dart';
 import 'package:quit_gambling/product/services/abstinence_tracker_service.dart';
 import 'package:quit_gambling/product/services/nova_mind_provider.dart';
+import 'package:quit_gambling/feature/main_view.dart';
+import 'package:quit_gambling/log.dart';
+import 'package:quit_gambling/product/services/abstinence_tracker_service.dart';
 import 'package:superwallkit_flutter/superwallkit_flutter.dart';
 import 'package:uni_links2/uni_links.dart';
 
